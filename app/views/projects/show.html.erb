@@ -1,0 +1,26 @@
+<h1 class="text-2xl font-bold mb-4"><%= @project.title %></h1>
+<p>Status: <%= @project.status %></p>
+
+<h2 class="mt-6 font-semibold">Add Comment</h2>
+<%= form_with model: @comment, url: comments_path, data: { turbo_stream: true } do |f| %>
+  <%= f.hidden_field :project_id, value: @project.id %>
+  <%= f.text_area :content, class: "border p-2 w-full" %>
+  <%= f.submit "Add Comment", class: "mt-2 bg-blue-500 text-white px-4 py-2 rounded" %>
+<% end %>
+
+<h2 class="mt-6 font-semibold">Change Status</h2>
+<%= form_with url: status_changes_path, data: { turbo_stream: true } do |_f| %>
+  <%= hidden_field_tag :project_id, @project.id %>
+  <%= select_tag :new_status, options_for_select(@status_options, @project.status), class: "border px-2 py-1" %>
+  <%= submit_tag "Change Status", class: "ml-2 bg-green-500 text-white px-4 py-2 rounded" %>
+<% end %>
+
+<h2 class="mt-6 font-semibold">Conversation History</h2>
+<ul id="comments">
+  <% @project.comments.order(created_at: :asc).each do |comment| %>
+    <li><strong>Comment:</strong> <%= comment.content %> — <em><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></em></li>
+  <% end %>
+  <% @project.status_changes.order(created_at: :asc).each do |change| %>
+    <li><strong>Status:</strong> <%= change.previous_status.titleize %> → <%= change.new_status.titleize %> — <em><%= change.created_at.strftime("%Y-%m-%d %H:%M") %></em></li>
+  <% end %>
+</ul>

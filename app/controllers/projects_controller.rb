@@ -10,7 +10,6 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @comment = Comment.new
-    @status_options = [["Pending", "pending"], ["In Progress", "in_progress"], ["Completed", "completed"]]
   end
 
   def create

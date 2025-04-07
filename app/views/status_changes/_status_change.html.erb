@@ -1,4 +1,4 @@
 <li>
-  <strong>Status:</strong> <%= status_change.previous_status %> → <%= status_change.new_status %> —
+  <strong>Status:</strong> <%= status_change.previous_status.titleize %> → <%= status_change.new_status.titleize %> —
   <em><%= status_change.created_at.strftime("%Y-%m-%d %H:%M") %></em>
 </li>

@@ -8,7 +8,7 @@
 
   <div class="mb-4">
     <%= f.label :status, class: "block font-semibold" %>
-    <%= f.select :status, options_for_select(["Pending", "In_Progress", "Completed"]), class: "border px-2 py-1 w-full" %>
+    <%= f.select :status, options_for_select(project_statuses), class: "border px-2 py-1 w-full" %>
   </div>
 
   <%= f.submit "Create Project", class: "bg-blue-600 text-white px-4 py-2 rounded" %>
